@@ -29,8 +29,6 @@ export default function decorate(block) {
   const ctaContainer = document.createElement('div');
   ctaContainer.className = 'cta-container text-base md:flex md:items-center md:space-x-16';
 
-  // console.log("Size: ",[...contentContainer.children]);
-
   [...contentContainer.children].forEach((p, index) => {
     if (index <= 1) content.append(p);
     else ctaContainer.append(p);
