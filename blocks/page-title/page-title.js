@@ -27,4 +27,4 @@ export default function decorate(block) {
     block.appendChild(pagetitleitem);
     }
   }
-  }
+}
