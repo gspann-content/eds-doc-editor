@@ -1,0 +1,5 @@
+.tw  .hover:tw-text-blue-700{
+    --tw-bg-opacity: 1;
+    background-color: #0068fa;
+    background-color: rgba(0, 104, 250, var(--tw-bg-opacity))
+}
