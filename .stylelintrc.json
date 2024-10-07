@@ -1,3 +1,13 @@
 {
-  "extends": ["stylelint-config-standard"]
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "font-family-name-quotes": null,
+    "function-url-quotes": null,
+    "property-no-vendor-prefix": null,
+    "hue-degree-notation": null,
+    "comment-empty-line-before": null,
+    "value-keyword-case": null,
+    "no-descending-specificity": null
+  }
 }
+
