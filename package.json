@@ -5,7 +5,8 @@
   "description": "Starter project for Adobe Helix",
   "scripts": {
     "lint:js": "eslint .",
-    "lint:css": "stylelint blocks/**/*.css styles/*.css",
+    "lint:fix": "eslint --fix --ext .js,.jsx .",
+    "lint:css": "stylelint blocks/**/*.css styles/*.css --fix",
     "lint": "npm run lint:js && npm run lint:css",
 	"build:css": "tailwindcss -i ./styles/styles.css -o ./styles/tailwind.css --watch" 
   },
