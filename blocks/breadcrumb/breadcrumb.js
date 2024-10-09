@@ -50,8 +50,6 @@ export default function decorate(block) {
           class: 'tw-text-grey-500 hover:tw-text-grey-900 tw-transition-colors tw-whitespace-nowrap tw-tracking-wide tw-duration-300 tw-ml-8',
           href: url
         }, formattedLinkText);
-        
-
         const breadcrumbLi = li({ class: 'tw-flex tw-items-center' }, breadcrumbLink);
         breadcrumbOl.appendChild(breadcrumbLi);
       }
