@@ -1,10 +1,11 @@
 import {
-    decorateIcons
-} from '../../scripts/aem.js';
+    div,
+    h1,
+    span
+} from '../../scripts/dom-builder.js';
+
 export default function decorate(block) {
-    const parentDiv = div({
-        class: 'tw-pb-32 md:tw-pb-48'
-    });
+    const parentDiv = div({ class: 'tw-pb-32 md:tw-pb-48'});
     const sectionDiv = document.createElement('section');
     sectionDiv.className = 'tw-relative tw-bg-cover tw-bg-center tw-bg-no-repeat';
     parentDiv.appendChild(sectionDiv);
