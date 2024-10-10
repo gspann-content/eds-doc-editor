@@ -124,7 +124,6 @@ export default async function decorate(block) {
       // tabComponentSection.prepend(tabComponent);
       // divTabsPTabCont.appendChild(divTabs);
       // tabComponentSection.appendChild(divTabsPTabCont);
-
       
       dicContainer.appendChild(divTabsCon);
       divTabsPTabCont.appendChild(dicContainer);
