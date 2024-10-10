@@ -1,6 +1,5 @@
 import {
     div,
-    h1,
     span
 } from '../../scripts/dom-builder.js';
 
@@ -9,9 +8,7 @@ export default function decorate(block) {
     const sectionDiv = document.createElement('section');
     sectionDiv.className = 'tw-relative tw-bg-cover tw-bg-center tw-bg-no-repeat';
     parentDiv.appendChild(sectionDiv);
-    const parentDiv1 = div({
-        class: 'tw-relative tw-min-h-[420px] md:tw-min-h-[512px]'
-    });
+    const parentDiv1 = div({class: 'tw-relative tw-min-h-[420px] md:tw-min-h-[512px]'});
     
     sectionDiv.appendChild(parentDiv1);
     const container = block.querySelector('div');
