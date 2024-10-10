@@ -5,7 +5,6 @@ const tabComponentTw= domB.div({ class: 'tw' });
 const tabComponentContebntDiv = domB.div({ class: 'aem-GridColumn aem-GridColumn--default--12' });
 const tabComponentContebntDivOutter = domB.div({ class: 'aem-Grid aem-Grid--12 aem-Grid--default--12' });
 const tabComponentContebnt = domB.div({ class: 'tw-flex-col' });
-
 // const tabComponentSection = domB.div({ class: 'tw-pt-32 md:tw-pt-48 tw-pb-32 md:tw-pb-48' });
 
 const tabComponentSection = document.createElement('section');
