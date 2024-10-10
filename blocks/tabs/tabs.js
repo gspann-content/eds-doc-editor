@@ -1,6 +1,5 @@
 import * as domB from '../../scripts/dom-builder.js';
 
-
 const tabComponentTw= domB.div({ class: 'tw' });
 
 const tabComponentContebntDiv = domB.div({ class: 'aem-GridColumn aem-GridColumn--default--12' });
@@ -72,7 +71,6 @@ export default async function decorate(block) {
             divDesc.textContent = colSecond.textContent.trim();
             divTabsCon.appendChild(divDesc);
           }
-
           
           const divLinkAnchor = domB.div({class: 'tw-mt-12 md:tw-mt-16'}); 
           const divLnk = domB.a({class: 'tw-transition tw-duration-300 tw-group focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-blue-700 tw-inline-flex tw-w-fit tw-items-center tw-text-blue-700 hover:tw-text-blue-800'}); 
@@ -137,7 +135,6 @@ export default async function decorate(block) {
 
     });
 
-    
     // block.textContent = '';
     // tabComponentContebnt.appendChild(tabComponentSection);
     // tabComponentContebntDiv.appendChild(tabComponentContebnt);
