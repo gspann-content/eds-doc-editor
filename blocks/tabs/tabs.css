@@ -45,3 +45,16 @@
     from {opacity: 0;}
     to {opacity: 1;}
   }
+
+.tabs-wrapper{
+  width : 100%;
+  display:inline-block;
+  float:left;
+}
+
+.tabs block{
+  width : 100%;
+  display:inline-block;
+  float:left;
+}
+

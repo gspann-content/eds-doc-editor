@@ -1,10 +1,12 @@
 import * as domB from '../../scripts/dom-builder.js';
 
+
 const tabComponentTw= domB.div({ class: 'tw' });
 
 const tabComponentContebntDiv = domB.div({ class: 'aem-GridColumn aem-GridColumn--default--12' });
 const tabComponentContebntDivOutter = domB.div({ class: 'aem-Grid aem-Grid--12 aem-Grid--default--12' });
 const tabComponentContebnt = domB.div({ class: 'tw-flex-col' });
+
 // const tabComponentSection = domB.div({ class: 'tw-pt-32 md:tw-pt-48 tw-pb-32 md:tw-pb-48' });
 
 const tabComponentSection = document.createElement('section');
@@ -16,36 +18,49 @@ export default async function decorate(block) {
   const tabButtonDiv = domB.div({ class: 'tw-container tw-hidden md:tw-flex tw-flex-row tw-w-full tw-items-stretch tw-flex-wrap' });
   
   var firstButton = 0; 
+  var nextButton = 0; 
+  var nextContent =0 ; 
+
     [...block.children].forEach((row, index) => {
           if (index === 0 ){console.log(index);}
-
+          
       [...row.children].forEach((col, indexInner) => {  
-        
+            
+              if(indexInner%5 === 0){
+                nextButton ++; 
+              }
+
               if(indexInner === 0){
-                var btnOuterDiv = domB.div({class: 'tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700'});
+                var btnOuterDiv = domB.div({class: 'tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-grey-100'});
                 //btnOuterDiv.setAttribute(":class", "openedTab == 0 ? 'tw-border-blue-700' : 'tw-border-grey-100'");
               
                 const button1 = domB.button({ class: 'tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'}); 
           
-                button1.addEventListener('click',(event) =>
-                {
-                  openCity(event, col.textContent.trim());
-                });
+                // btnOuterDiv.addEventListener('click',(event) =>
+                // {
+                //   openCity(event, "opentab"+nextButton);
+                // });
 
+                btnOuterDiv.setAttribute("onclick","openCity(event, 'opentab"+nextButton+"');");
+                
                 var spnBtn = domB.span({class : 'tw-line-clamp-2 tw-text-left'});
                 spnBtn.textContent = col.textContent.trim();
                 button1.appendChild(spnBtn);
+
                 if (firstButton === 0){
-                  button1.setAttribute("class","defaultOpen");  
+                  btnOuterDiv.setAttribute("id","defaultOpen");  
                   firstButton ++ ;
                 }
 
+               // btnOuterDiv.setAttribute("id", "opentab"+nextButton);
                 btnOuterDiv.appendChild(button1);
                 tabButtonDiv.appendChild(btnOuterDiv);
+
+                col.textContent.trim();
                 //tabComponent.appendChild(tabButtonDiv);
                 
               }
-                     
+
         });
 
         const divTabs = domB.div({class: 'tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'}); 
@@ -57,19 +72,25 @@ export default async function decorate(block) {
 
         [...row.children].forEach((colSecond, indexInnerSecond) => {
 
+          if(indexInnerSecond%5 === 0){
+            nextContent ++; 
+         }
+
           if(indexInnerSecond === 0){
            const divHr = domB.h3({class : 'text-lg-bolder tw-text-grey-900 tw-mb-6 md:tw-mb-8'}); 
             
            divHr.textContent = colSecond.textContent.trim();
-           dicContainer.setAttribute("id",colSecond.textContent.trim());
+           dicContainer.setAttribute("id", colSecond.textContent.trim());
            divTabsCon.appendChild(divHr);
 
           }
+
           if(indexInnerSecond === 1){
             const divDesc = domB.p({class: 'text-base tw-text-grey-500 md:tw-grow'}); 
             divDesc.textContent = colSecond.textContent.trim();
             divTabsCon.appendChild(divDesc);
           }
+
           
           const divLinkAnchor = domB.div({class: 'tw-mt-12 md:tw-mt-16'}); 
           const divLnk = domB.a({class: 'tw-transition tw-duration-300 tw-group focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-blue-700 tw-inline-flex tw-w-fit tw-items-center tw-text-blue-700 hover:tw-text-blue-800'}); 
@@ -124,15 +145,18 @@ export default async function decorate(block) {
       // tabComponentSection.prepend(tabComponent);
       // divTabsPTabCont.appendChild(divTabs);
       // tabComponentSection.appendChild(divTabsPTabCont);
+
       
       dicContainer.appendChild(divTabsCon);
       divTabsPTabCont.appendChild(dicContainer);
       tabComponentContebnt.prepend(tabButtonDiv);
       divTabs.appendChild(divTabsPTabCont);
+      divTabs.setAttribute("id", "opentab"+nextContent);
       tabComponentContebnt.appendChild(divTabs);
 
     });
 
+    
     // block.textContent = '';
     // tabComponentContebnt.appendChild(tabComponentSection);
     // tabComponentContebntDiv.appendChild(tabComponentContebnt);
@@ -147,51 +171,80 @@ export default async function decorate(block) {
 tabComponentTw.appendChild(tabComponentContebntDivOutter);
     block.append(tabComponentTw);
 
-    //document.getElementsByClassName("defaultOpen")[0].click();
-}
-
-
-
-function openCity(evt, cityName) {
-  // Declare all variables
-  var i, tabcontent, tablinks;
-
-   ///// For Content ///// 
-
-  // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tab-content tw-my-32 md:tw-mb-0 tw-flex tw-flex-col md:tw-flex-row-reverse");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].setAttribute("style","display:none"); 
-  }
-
+    const scTag = document.createElement("script");
   
-  //// For Button //////
-
- // Get all elements with class="tablinks" and remove the class "active"
- tablinks = document.getElementsByClassName("tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700");
- for (i = 0; i < tablinks.length; i++) {
-   tablinks[i].className = tablinks[i].className.replace("tw-border-grey-100 active", "");
- }
-
- // Get all elements with class="tablinks" and remove the class "active"
-
- tablinks = document.getElementsByClassName("tw-line-clamp-2 tw-text-left");
- for (i = 0; i < tablinks.length; i++) {
-   tablinks[i].className = tablinks[i].className.replace("tw-line-clamp-2 tw-text-left", "tw-line-clamp-2 tw-m-12");
- }
-
- 
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace("tw-text-grey-900 active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(cityName).setAttribute("style","");
-  evt.currentTarget.className += " active";
+    scTag.innerText = "function openCity(t,e){var l,a,r;for(alert(e),a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)a[l].setAttribute('style','display:none');for(document.getElementById(e).setAttribute('style','display:block'),r=document.getElementsByClassName('tw-line-clamp-2 tw-text-left'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-line-clamp-2 tw-text-left','tw-line-clamp-2 tw-m-12');for(r=document.getElementsByClassName('tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-border-blue-700 active','tw-border-grey-100');t.currentTarget.className='tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active'}";
+    block.appendChild(scTag);
+    //document.getElementById("opentab1").click();
+    document.getElementById("defaultOpen").click();
 }
 
 
- 
+
+// function openCity(evt, cityName) {
+//   // Declare all variables
+//   var i, tabcontent, tablinks;
+
+//   // hide all the tabs and grey out all the tabs
+
+//   alert(cityName);
+  
+//   // Get all elements with class="tabcontent" and hide them
+//   tabcontent = document.getElementsByClassName("tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]");
+  
+//   for (i = 0; i < tabcontent.length; i++) {
+//     tabcontent[i].setAttribute("style","display:none"); 
+//   }
+  
+
+
+//   var activeCity = document.getElementById(cityName);
+//   activeCity.setAttribute("style","display:block"); 
+
+//    // show the current tab and mark it is blue and active 
+
+//    ///// For Content ///// 
+
+//    //document.getElementById(cityName).setAttribute("style","display:inline-block");
+//  //  evt.currentTarget.className += " active";
+    
+//   //// For Button //////
+
+//  // Get all elements with class="tablinks" and remove the class "active"
+// //  tablinks = document.getElementsByClassName("tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-grey-100");
+// //  for (i = 0; i < tablinks.length; i++) {
+// //    tablinks[i].className = tablinks[i].className.replace("tw-border-blue-700 active", "");
+// //  }
+// //  evt.currentTarget.className += "tw-border-grey-100 active";
+
+//  //activeCity.setAttribute("style","display:inline-block"); 
+//  //tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-grey-100
+
+//  // Get all elements with class="tablinks" and remove the class "active"
+
+//  tablinks = document.getElementsByClassName("tw-line-clamp-2 tw-text-left");
+//  for (i = 0; i < tablinks.length; i++) {
+//    tablinks[i].className = tablinks[i].className.replace("tw-line-clamp-2 tw-text-left", "tw-line-clamp-2 tw-m-12");
+//  }
+
+//   // // Get all elements with class="tablinks" and remove the class "active"
+//   // tablinks = document.getElementsByClassName("tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700");
+//   // for (i = 0; i < tablinks.length; i++) {
+//   //   tablinks[i].className = tablinks[i].className.replace("tw-text-grey-900 active", "");
+//   // }
+
+//   //if(evt.currentTarget.className === "defaultOpen" ){
+//    // evt.currentTarget.className = ""; 
+//  // }
+
+//   // Get all elements with class="tablinks" and remove the class "active"
+//   tablinks = document.getElementsByClassName("tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700");
+//   for (i = 0; i < tablinks.length; i++) {
+//     tablinks[i].className = tablinks[i].className.replace("tw-border-blue-700 active", "tw-border-grey-100");
+//   }
+  
+//   evt.currentTarget.className = "tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active";
+//   // Show the current tab, and add an "active" class to the button that opened the tab
+
+// }
+
