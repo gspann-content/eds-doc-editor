@@ -3,8 +3,14 @@ import * as domB from '../../scripts/dom-builder.js';
 
 const tabComponentTw= domB.div({ class: 'tw' });
 
-const tabComponentContebntDiv = domB.div({ class: 'aem-GridColumn aem-GridColumn--default--12' });
+const tabComponentContebntDiv = domB.div({ class: 'tab aem-GridColumn aem-GridColumn--default--12' });
 const tabComponentContebntDivOutter = domB.div({ class: 'aem-Grid aem-Grid--12 aem-Grid--default--12' });
+const tabComponentContebntDivOutter2 = domB.div({ class: 'aem-Grid aem-Grid--12 aem-Grid--default--12' });
+const divContainer = domB.div({ class: 'cmp-container' });
+const divContainer3 = domB.div({ class: 'cmp-container' });
+const divContainer4 = domB.div({ class: 'container-v2' });
+
+const divContainer2 = domB.div({ class: 'container-v2 aem-GridColumn aem-GridColumn--default--12' });
 const tabComponentContebnt = domB.div({ class: 'tw-flex-col' });
 
 // const tabComponentSection = domB.div({ class: 'tw-pt-32 md:tw-pt-48 tw-pb-32 md:tw-pb-48' });
@@ -34,7 +40,7 @@ export default async function decorate(block) {
                 var btnOuterDiv = domB.div({class: 'tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-grey-100'});
                 //btnOuterDiv.setAttribute(":class", "openedTab == 0 ? 'tw-border-blue-700' : 'tw-border-grey-100'");
               
-                const button1 = domB.button({ class: 'tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'}); 
+                const button1 = domB.button({ class: 'tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-grey-900'}); 
           
                 // btnOuterDiv.addEventListener('click',(event) =>
                 // {
@@ -168,12 +174,23 @@ export default async function decorate(block) {
 
     tabComponentContebntDivOutter.appendChild(tabComponentContebntDiv);
  
-tabComponentTw.appendChild(tabComponentContebntDivOutter);
-    block.append(tabComponentTw);
+    divContainer.appendChild(tabComponentContebntDivOutter);
+    divContainer2.appendChild(divContainer);
+    tabComponentContebntDivOutter2.appendChild(divContainer2);
+    divContainer3.appendChild(tabComponentContebntDivOutter2);
+    divContainer4.appendChild(divContainer3);
+    tabComponentTw.appendChild(divContainer4);
 
+     
+    block.append(tabComponentTw);
+    
     const scTag = document.createElement("script");
   
-    scTag.innerText = "function openCity(t,e){var l,a,r;for(alert(e),a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)a[l].setAttribute('style','display:none');for(document.getElementById(e).setAttribute('style','display:block'),r=document.getElementsByClassName('tw-line-clamp-2 tw-text-left'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-line-clamp-2 tw-text-left','tw-line-clamp-2 tw-m-12');for(r=document.getElementsByClassName('tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-border-blue-700 active','tw-border-grey-100');t.currentTarget.className='tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active'}";
+    const varStr = "function openCity(t,e){var l,a,r;for(a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)"+
+      "a[l].setAttribute('style','display:none');for(document.getElementById(e).setAttribute('style','display:block'),r=document.getElementsByClassName('tw-line-clamp-2 tw-text-left'),l=0;l<r.length;l++)"+
+      "r[l].className=r[l].className.replace('tw-line-clamp-2 tw-text-left','tw-line-clamp-2 tw-m-12');for(r=document.getElementsByClassName('tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-border-blue-700 active','tw-border-grey-100');t.currentTarget.className='tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active';for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-text-blue-700','tw-text-grey-900');t.currentTarget.getElementsByTagName('button')[0].className='tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'}";
+
+    scTag.innerText = varStr;
     block.appendChild(scTag);
     //document.getElementById("opentab1").click();
     document.getElementById("defaultOpen").click();
@@ -227,24 +244,7 @@ tabComponentTw.appendChild(tabComponentContebntDivOutter);
 //    tablinks[i].className = tablinks[i].className.replace("tw-line-clamp-2 tw-text-left", "tw-line-clamp-2 tw-m-12");
 //  }
 
-//   // // Get all elements with class="tablinks" and remove the class "active"
-//   // tablinks = document.getElementsByClassName("tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700");
-//   // for (i = 0; i < tablinks.length; i++) {
-//   //   tablinks[i].className = tablinks[i].className.replace("tw-text-grey-900 active", "");
-//   // }
 
-//   //if(evt.currentTarget.className === "defaultOpen" ){
-//    // evt.currentTarget.className = ""; 
-//  // }
 
-//   // Get all elements with class="tablinks" and remove the class "active"
-//   tablinks = document.getElementsByClassName("tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700");
-//   for (i = 0; i < tablinks.length; i++) {
-//     tablinks[i].className = tablinks[i].className.replace("tw-border-blue-700 active", "tw-border-grey-100");
-//   }
-  
-//   evt.currentTarget.className = "tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active";
-//   // Show the current tab, and add an "active" class to the button that opened the tab
 
-// }
 
