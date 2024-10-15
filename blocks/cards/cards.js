@@ -7,12 +7,26 @@ export default function decorate(block) {
     const li = document.createElement('li');
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
-      else div.className = 'cards-card-body';
+      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image tw-mb-16 md:tw-mb-20';
+      else {
+        div.className = 'cards-card-body';
+        
+        const button = div.querySelector('button');
+        if (button) {
+          button.remove();
+        }
+
+        const cta = document.createElement('a');
+        cta.className = 'cta';
+        cta.href = '#';
+        cta.textContent = 'Learn More';
+        div.append(cta);
+      } 
     });
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   block.textContent = '';
   block.append(ul);
+  block.classList.add("tw");
 }

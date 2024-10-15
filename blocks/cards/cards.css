@@ -1,4 +1,4 @@
-.cards > ul {
+.cards>ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -7,20 +7,95 @@
   grid-gap: 24px;
 }
 
-.cards > ul > li {
-  border: 1px solid #dadada;
+.cards>ul>li {
+  border-top: 1px solid #dadada;
   background-color: var(--background-color);
 }
 
 .cards .cards-card-body {
   margin: 16px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
 }
 
-.cards .cards-card-image {
+.cards-card-body p {
+  flex-grow: 1;
+}
+
+.cards .cards-card-body .cta {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #007bff;
+  position: relative;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+  width: fit-content;
+  /* border-bottom: 2px solid #007bff; */
+}
+
+.cards .cards-card-body .cta::after {
+  content: '→';
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.cards .cards-card-body .cta:hover {
+  color: #0056b3;
+  /* border-bottom: 2px solid #007bff; */
+}
+
+.cards .cards-card-body .cta:hover::after {
+  transform: translateX(5px);
+}
+
+.cards .cards-card-body .cta {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #007bff;
+  position: relative;
+  transition: 0.9s;
+  width: fit-content;
+  background-image: linear-gradient(to right, #007bff 100%, transparent 0%);
+  background-position: 0% 100%;
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+}
+
+.cards .cards-card-body .cta::after {
+  content: '→';
+  margin-left: 8px;
+  transition: 0.9s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.cards .cards-card-body .cta:hover {
+  color: #0056b3;
+  background-position: 100% 100%;
+  background-size: 0% 2px;
+}
+
+.cards .cards-card-body .cta:hover::after {
+  transform: translateX(3px);
+}
+
+.cards .cards-card-body .cards .cards-card-image {
   line-height: 0;
 }
 
-.cards > ul > li img {
+.cards-card-image img {
+  height: 40px;
+  max-width: 40px;
+  margin-top: 32px;
+  margin-left: 10px;
+}
+
+.cards>ul>li img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
