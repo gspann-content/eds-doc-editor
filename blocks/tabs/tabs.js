@@ -25,6 +25,8 @@ export default async function decorate(block) {
   let nextButton = 0;
   let nextContent = 0;
 
+  let nextResponsiveButton = 0;
+
   [...block.children].forEach((row, index) => {
     if (index === 0);
 
@@ -36,11 +38,11 @@ export default async function decorate(block) {
       if (indexInner === 0) {
         const btnOuterDiv = domB.div({ class: 'tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-grey-100' });
 
-        const button1 = domB.button({ class: 'tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-grey-900' });
+        const button1 = domB.button({ class: 'tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-grey-900' });
 
-        btnOuterDiv.setAttribute('onclick', `openCity(event, 'opentab${nextButton}');`);
+        btnOuterDiv.setAttribute('onclick', `openTabDiv(event, 'opentab${nextButton}','0')`);
 
-        const spnBtn = domB.span({ class: 'tw-line-clamp-2 tw-text-left' });
+        const spnBtn = domB.span({ class: 'tw-line-clamp-2 tw-m-12' });
         spnBtn.textContent = col.textContent.trim();
         button1.appendChild(spnBtn);
 
@@ -70,6 +72,10 @@ export default async function decorate(block) {
         nextContent += 1;
       }
 
+      if (indexInnerSecond % 5 === 0) {
+        nextResponsiveButton += 1;
+      }
+
       if (indexInnerSecond === 0) {
         // h3 heading main start //
         const divHr = domB.h3({ class: 'text-lg-bolder tw-text-grey-900 tw-mb-6 md:tw-mb-8' });
@@ -79,11 +85,11 @@ export default async function decorate(block) {
         divTabsCon.appendChild(divHr);
 
         // invisible button start
-        const divBtn = domB.button({ class: 'md:tw-hidden  tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-grey-100 tw-text-grey-900' });
+        const divBtn = domB.button({ class: 'md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-blue-700 tw-text-blue-700 tw-border-b' });
         const btninDiv = domB.div({ class: 'tw-container tw-flex tw-justify-between tw-items-center' });
         const btninDivSpn = domB.span({ class: 'tw-line-clamp-2 tw-text-left' });
         const btninDivDiv = domB.span({ class: 'tw-transition-all tw-duration-300 tw-transition-ease-in-out' });
-        const btnSvg = document.createElement('svg');
+        const btnSvg = document.createElementNS('SVG_NS', 'svg');
 
         btnSvg.setAttribute('width', '16');
         btnSvg.setAttribute('height', '16');
@@ -92,18 +98,29 @@ export default async function decorate(block) {
         btnSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         btnSvg.setAttribute('data-di-rand', '1728959310410');
 
-        const btnSvgPath = document.createElement('path');
+        const btnSvgPath = document.createElementNS('SVG_NS', 'path');
         btnSvgPath.setAttribute('d', 'M14 5.00366L8 11.0037L2 5.00366');
         btnSvgPath.setAttribute('stroke', '#0068FA');
 
         btnSvg.appendChild(btnSvgPath);
         btninDivDiv.appendChild(btnSvg);
 
+        btninDivSpn.textContent = colSecond.textContent.trim();
+
         btninDiv.appendChild(btninDivSpn);
         btninDiv.appendChild(btninDivDiv);
 
         divBtn.appendChild(btninDiv);
-        divTabs.appendChild(divBtn);
+
+        // if (firstResponsiveButton === 0) {
+        //   divBtn.setAttribute('id', 'defaultOpenTablet');
+        //   firstResponsiveButton += 1;
+        // }
+
+        divBtn.setAttribute('onclick', `openTabDiv(event, 'opentab${nextResponsiveButton}','1')`);
+        // divBtn.setAttribute('id', `opentab${nextResponsiveButton}`);
+
+        tabComponentContebnt.appendChild(divBtn);
       }
 
       if (indexInnerSecond === 1) {
@@ -119,19 +136,30 @@ export default async function decorate(block) {
       }
 
       if (indexInnerSecond === 3) {
-        const svgF = document.createElement('svg');
-        const svgFP1 = document.createElement('path');
-        const svgFP2 = document.createElement('path');
+        const svgF = document.createElementNS('SVG_NS', 'svg');
+        const svgFP1 = document.createElementNS('SVG_NS', 'path');
+        const svgFP2 = document.createElementNS('SVG_NS', 'path');
+
         svgFP1.setAttribute('d', 'M0 7L15 7');
         svgFP1.setAttribute('stroke', 'currentColor');
         svgFP2.setAttribute('d', 'M9 1L15 7L9 13');
         svgFP2.setAttribute('stroke', 'currentColor');
+        svgF.setAttribute('data-di-res-id', '9a0b1e6c-b3c601a6');
+        svgF.setAttribute('data-di-rand', '1729050058549');
+        svgF.setAttribute('width', '16');
+        svgF.setAttribute('height', '14');
+        svgF.setAttribute('viewBox', '0 0 16 14');
+        svgF.setAttribute('fill', 'none');
 
-        svgF.setAttribute('class', 'tw-transition-all tw-duration-500 tw-block tw-ml-8 group-hover:tw-ml-12 tw-flex-shrink-0');
+        // const svgStyle = document.createElement('style');
+        // svgStyle.innerText = "svg[Attributes Style] {width: 16;height: 14;fill: none;} ";
+
+        svgF.setAttribute('class', 'tw-transition-all tw-duration-500 motion-reduce:tw-transition-none tw-block tw-ml-8 group-hover:tw-ml-12 tw-flex-shrink-0');
         svgF.appendChild(svgFP1);
         svgF.appendChild(svgFP2);
         divLnk.appendChild(svgF);
 
+        divLnk.setAttribute('data-di-id', 'di-id-7d6b9fc-8db9f78e');
         divLnk.setAttribute('href', lnkVal);
         divLnk.setAttribute('target', '_self');
         const linkOuterDiv = domB.div({ class: 'tw-text-mobBase md:tw-text-base tw-relative tw-overflow-hidden' });
@@ -139,7 +167,7 @@ export default async function decorate(block) {
         linkOuterDivspan.innerHTML = colSecond.textContent.trim();
         linkOuterDiv.appendChild(linkOuterDivspan);
 
-        const linkOuterDivspan2 = domB.span({ class: 'tw-absolute tw-left-0 tw-bottom-0 tw-block tw-w-full group-hover:tw-left-[100%] tw-transition-all tw-duration-500 tw-h-1 tw-bg-blue-700 hover:tw-bg-blue-800' });
+        const linkOuterDivspan2 = domB.span({ class: 'tw-absolute tw-left-0 tw-bottom-0 tw-block tw-w-full group-hover:tw-left-[100%] tw-transition-all tw-duration-500 motion-reduce:tw-transition-none tw-h-1 tw-bg-blue-700 hover:tw-bg-blue-800' });
         linkOuterDiv.appendChild(linkOuterDivspan2);
 
         divLnk.prepend(linkOuterDiv);
@@ -192,12 +220,23 @@ export default async function decorate(block) {
 
   const scTag = document.createElement('script');
 
-  const varStr = "function openCity(t,e){var l,a,r;for(a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)"
-      + "a[l].setAttribute('style','display:none');for(document.getElementById(e).setAttribute('style','display:block'),r=document.getElementsByClassName('tw-line-clamp-2 tw-text-left'),l=0;l<r.length;l++)"
-      + "r[l].className=r[l].className.replace('tw-line-clamp-2 tw-text-left','tw-line-clamp-2 tw-m-12');for(r=document.getElementsByClassName('tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-border-blue-700 active','tw-border-grey-100');t.currentTarget.className='tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active';for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'),l=0;l<r.length;l++)r[l].className=r[l].className.replace('tw-text-blue-700','tw-text-grey-900');t.currentTarget.getElementsByTagName('button')[0].className='tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'}";
+  const varStr = "function openTabDiv(t,e,tabornot){var l,a,r;if(tabornot=='0'){for(a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)"
+      + "a[l].setAttribute('style','display:none');document.getElementById(e).setAttribute('style','display:block');"
+      + "for(r=document.getElementsByClassName('tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('tw-border-blue-700 active','tw-border-grey-100');}t.currentTarget.className='tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active';for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('tw-text-blue-700','tw-text-grey-900');}for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('tw-text-blue-700','tw-text-grey-900').replace('hover:tw-text-grey-900','hover:tw-text-blue-700');}for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-grey-900'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('hover:tw-text-grey-900','hover:tw-text-blue-700');}t.currentTarget.getElementsByTagName('button')[0].className='tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700';}"
+    + "if (tabornot=='1'){for(a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)"
+      + "a[l].setAttribute('style','display:none');document.getElementById(e).setAttribute('style','display:block');"
+      + '}}';
 
   scTag.innerText = varStr;
   block.appendChild(scTag);
-  // document.getElementById("opentab1").click();
+
+  // const scTagTablet = document.createElement('script');
+
+  // const varStrTablet = "function openTabDivTablet(t,e){var l,a,r;}";
+
+  // scTagTablet.innerText = varStrTablet;
+  // block.appendChild(scTagTablet);
+
   document.getElementById('defaultOpen').click();
+  // document.getElementById("defaultOpenTablet").click();
 }
