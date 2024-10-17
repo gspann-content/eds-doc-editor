@@ -22,7 +22,7 @@
     flex: 0 1 calc(50% - 20px);
     margin: 10px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgb(255 255 255 / 0.5);
     overflow: hidden;
     transition: background-color 0.3s ease;
 }
@@ -60,7 +60,7 @@
 }
 
 .card-body p {
-    padding: 10px 0 0 0;
+    padding: 10px 0 0;
 }
 
 .card:hover .cta,
