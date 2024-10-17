@@ -12,8 +12,6 @@ const divContainer4 = domB.div({ class: 'container-v2' });
 const divContainer2 = domB.div({ class: 'container-v2 aem-GridColumn aem-GridColumn--default--12' });
 const tabComponentContebnt = domB.div({ class: 'tw-flex-col' });
 
-// const tabComponentSection = domB.div({ class: 'tw-pt-32 md:tw-pt-48 tw-pb-32 md:tw-pb-48' });
-
 const tabComponentSection = document.createElement('section');
 tabComponentSection.setAttribute('class', 'tw-pt-32 md:tw-pt-48 tw-pb-32 md:tw-pb-48');
 
@@ -24,7 +22,7 @@ export default async function decorate(block) {
   let firstButton = 0;
   let nextButton = 0;
   let nextContent = 0;
-
+  let firstResponsiveButton = 0;
   let nextResponsiveButton = 0;
 
   [...block.children].forEach((row, index) => {
@@ -89,7 +87,7 @@ export default async function decorate(block) {
         const btninDiv = domB.div({ class: 'tw-container tw-flex tw-justify-between tw-items-center' });
         const btninDivSpn = domB.span({ class: 'tw-line-clamp-2 tw-text-left' });
         const btninDivDiv = domB.span({ class: 'tw-transition-all tw-duration-300 tw-transition-ease-in-out' });
-        const btnSvg = document.createElementNS('SVG_NS', 'svg');
+        const btnSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 
         btnSvg.setAttribute('width', '16');
         btnSvg.setAttribute('height', '16');
@@ -98,7 +96,7 @@ export default async function decorate(block) {
         btnSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         btnSvg.setAttribute('data-di-rand', '1728959310410');
 
-        const btnSvgPath = document.createElementNS('SVG_NS', 'path');
+        const btnSvgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         btnSvgPath.setAttribute('d', 'M14 5.00366L8 11.0037L2 5.00366');
         btnSvgPath.setAttribute('stroke', '#0068FA');
 
@@ -112,13 +110,12 @@ export default async function decorate(block) {
 
         divBtn.appendChild(btninDiv);
 
-        // if (firstResponsiveButton === 0) {
-        //   divBtn.setAttribute('id', 'defaultOpenTablet');
-        //   firstResponsiveButton += 1;
-        // }
+        if (firstResponsiveButton === 0) {
+          divBtn.setAttribute('id', 'defaultOpenTablet');
+          firstResponsiveButton += 1;
+        }
 
         divBtn.setAttribute('onclick', `openTabDiv(event, 'opentab${nextResponsiveButton}','1')`);
-        // divBtn.setAttribute('id', `opentab${nextResponsiveButton}`);
 
         tabComponentContebnt.appendChild(divBtn);
       }
@@ -136,9 +133,9 @@ export default async function decorate(block) {
       }
 
       if (indexInnerSecond === 3) {
-        const svgF = document.createElementNS('SVG_NS', 'svg');
-        const svgFP1 = document.createElementNS('SVG_NS', 'path');
-        const svgFP2 = document.createElementNS('SVG_NS', 'path');
+        const svgF = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const svgFP1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const svgFP2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
         svgFP1.setAttribute('d', 'M0 7L15 7');
         svgFP1.setAttribute('stroke', 'currentColor');
@@ -151,18 +148,15 @@ export default async function decorate(block) {
         svgF.setAttribute('viewBox', '0 0 16 14');
         svgF.setAttribute('fill', 'none');
 
-        // const svgStyle = document.createElement('style');
-        // svgStyle.innerText = "svg[Attributes Style] {width: 16;height: 14;fill: none;} ";
-
         svgF.setAttribute('class', 'tw-transition-all tw-duration-500 motion-reduce:tw-transition-none tw-block tw-ml-8 group-hover:tw-ml-12 tw-flex-shrink-0');
         svgF.appendChild(svgFP1);
         svgF.appendChild(svgFP2);
-        divLnk.appendChild(svgF);
 
-        divLnk.setAttribute('data-di-id', 'di-id-7d6b9fc-8db9f78e');
+        // divLnk.setAttribute('data-di-id', 'di-id-7d6b9fc-8db9f78e');
         divLnk.setAttribute('href', lnkVal);
         divLnk.setAttribute('target', '_self');
         const linkOuterDiv = domB.div({ class: 'tw-text-mobBase md:tw-text-base tw-relative tw-overflow-hidden' });
+        // const linkOuterDiv = domB.div({ class: '' });
         const linkOuterDivspan = domB.span({ class: 'tw-whitespace-normal tw-text-left' });
         linkOuterDivspan.innerHTML = colSecond.textContent.trim();
         linkOuterDiv.appendChild(linkOuterDivspan);
@@ -171,6 +165,7 @@ export default async function decorate(block) {
         linkOuterDiv.appendChild(linkOuterDivspan2);
 
         divLnk.prepend(linkOuterDiv);
+        divLnk.appendChild(svgF);
         divLinkAnchor.appendChild(divLnk);
         divTabsCon.appendChild(divLinkAnchor);
       }
@@ -184,11 +179,6 @@ export default async function decorate(block) {
         dicContainer.prepend(divImg);
       }
     });
-    // dicContainer.appendChild(divTabsCon);
-    // divTabsPTabCont.appendChild(dicContainer);
-    // tabComponentSection.prepend(tabComponent);
-    // divTabsPTabCont.appendChild(divTabs);
-    // tabComponentSection.appendChild(divTabsPTabCont);
 
     dicContainer.appendChild(divTabsCon);
     divTabsPTabCont.appendChild(dicContainer);
@@ -197,11 +187,6 @@ export default async function decorate(block) {
     divTabs.setAttribute('id', `opentab${nextContent}`);
     tabComponentContebnt.appendChild(divTabs);
   });
-
-  // block.textContent = '';
-  // tabComponentContebnt.appendChild(tabComponentSection);
-  // tabComponentContebntDiv.appendChild(tabComponentContebnt);
-  // block.append(tabComponentContebntDiv);
 
   block.textContent = '';
   tabComponentSection.appendChild(tabComponentContebnt);
@@ -218,25 +203,49 @@ export default async function decorate(block) {
 
   block.append(tabComponentTw);
 
+  const a = document.getElementsByClassName('md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-grey-100 tw-text-grey-900');
+  const len = a.length;
+  for (let l = 0; l < len; l += 1) {
+    if (a[l]) {
+      if (a[l].className === 'md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-grey-100 tw-text-grey-900') {
+        a[l].className = 'md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-blue-700 tw-text-blue-700 tw-border-b';
+      }
+    }
+  }
+
+  const scTag2 = document.createElement('script');
+
+  const varStr2 = 'function greyOutTheDivsAfterClick(){'
++ "var objToGrey = document.getElementsByClassName('md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-blue-700 tw-text-blue-700 tw-border-b');"
++ "Array.from(objToGrey).forEach(function(item) {item.className = item.className.replace(' tw-border-blue-700 tw-text-blue-700 tw-border-b','tw-border-grey-100 tw-text-grey-900');"
++ '});}';
+
+  scTag2.innerText = varStr2;
+
+  block.appendChild(scTag2);
+
   const scTag = document.createElement('script');
 
   const varStr = "function openTabDiv(t,e,tabornot){var l,a,r;if(tabornot=='0'){for(a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)"
       + "a[l].setAttribute('style','display:none');document.getElementById(e).setAttribute('style','display:block');"
       + "for(r=document.getElementsByClassName('tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('tw-border-blue-700 active','tw-border-grey-100');}t.currentTarget.className='tw-h-auto tw-border-b-2 tw-mr-4 tw-hidden md:tw-block tw-border-blue-700 active';for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('tw-text-blue-700','tw-text-grey-900');}for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('tw-text-blue-700','tw-text-grey-900').replace('hover:tw-text-grey-900','hover:tw-text-blue-700');}for(r=document.getElementsByClassName('tw-text-left text-base-bolder tw-w-160 hover:tw-text-grey-900 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-grey-900'),l=0;l<r.length;l++){r[l].className=r[l].className.replace('hover:tw-text-grey-900','hover:tw-text-blue-700');}t.currentTarget.getElementsByTagName('button')[0].className='tw-text-left text-base-bolder tw-w-160 hover:tw-text-blue-700 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-[-2px] focus-visible:tw-outline-blue-700 tw-text-blue-700';}"
-    + "if (tabornot=='1'){for(a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)"
+      + "if (tabornot=='1'){for(a=document.getElementsByClassName('tw-grid tw-container tw-transition-all tw-duration-300 tw-transition-ease-in-out md:tw-transition-none tw-grid-rows-[1fr]'),l=0;l<a.length;l++)"
       + "a[l].setAttribute('style','display:none');document.getElementById(e).setAttribute('style','display:block');"
-      + '}}';
+      + "greyOutTheDivsAfterClick();t.currentTarget.className = 'md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-blue-700 tw-text-blue-700 tw-border-b';}"
+      + '}';
 
   scTag.innerText = varStr;
   block.appendChild(scTag);
 
-  // const scTagTablet = document.createElement('script');
+  const objToGrey = document.getElementsByClassName('md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-blue-700 tw-text-blue-700 tw-border-b');
 
-  // const varStrTablet = "function openTabDivTablet(t,e){var l,a,r;}";
-
-  // scTagTablet.innerText = varStrTablet;
-  // block.appendChild(scTagTablet);
+  function greyOutTheDivs() {
+    Array.from(objToGrey).forEach((item) => {
+      item.className = item.className.replace(' tw-border-blue-700 tw-text-blue-700 tw-border-b', 'tw-border-grey-100 tw-text-grey-900');
+      document.getElementById('defaultOpenTablet').className = 'md:tw-hidden tw-flex-row tw-items-center tw-w-full tw-py-10 tw-border-t focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-blue-700 text-base-bolder tw-text-ellipsis tw-border-blue-700 tw-text-blue-700 tw-border-b';
+    });
+  }
+  greyOutTheDivs();
 
   document.getElementById('defaultOpen').click();
-  // document.getElementById("defaultOpenTablet").click();
 }
