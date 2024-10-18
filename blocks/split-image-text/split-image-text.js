@@ -1,12 +1,9 @@
-import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import {
-  div, nav, ol, li, a, span, i,
+  div, span,
 } from '../../scripts/dom-builder.js';
 
 // breadcrumb functionality implementation
-export default function decorate(block) {
-
-    
+export default function decorate(block) {   
 const sectionDiv = document.createElement('section');
 sectionDiv.className = 'split-component-right tw-pt-32 md:tw-pt-48 tw-pb-32 md:tw-pb-48';
 const parentDiv = div({ class: 'tw-container tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between' });
@@ -43,7 +40,6 @@ h3tag.className = 'text-delta tw-text-grey-900 tw-break-words';
 h3tag.textContent = heading.textContent;
 headingdiv.appendChild(h3tag);
 
-
 const contnetDiv2 = div({class: 'atomic-child'});
 contentDiv.appendChild(contnetDiv2);
 const buttonDiv1 = div({class: 'atomic-buttons | tw-inline-flex tw-w-full md:tw-w-auto md:tw-flex tw-items-center tw-flex-wrap tw-gap-x-16 tw-gap-y-16 tw-pb-16 md:tw-pb-20'});
@@ -52,7 +48,6 @@ const buttonDiv2 = div({class: 'tw-w-full md:tw-w-auto'});
 buttonDiv1.appendChild(buttonDiv2);
 const anchorTag = document.createElement('a');
 anchorTag.className = 'tw-text-mobBase md:tw-text-base tw-inline-block focus-visible:tw-outline-none tw-whitespace-nowrap focus-visible:tw-ring-offset-2 focus-visible:tw-ring-2 focus-visible:tw-ring-blue-700 tw-rounded tw-border tw-py-12 tw-px-16 md:tw-px-20 active:tw-bg-blue-900 tw-border-blue-700 tw-text-white tw-bg-gradient-to-r tw-bg-blue-700 tw-from-blue-800 tw-via-blue-800 tw-to-blue-800 tw-bg-bottom tw-bg-no-repeat tw-bg-[length:100%_0px] hover:tw-bg-[length:100%_100%] tw-transition-all motion-reduce:tw-transition-none tw-w-full md:tw-w-auto';
-//anchorTag.textContent = link.textContent;
 anchorTag.href = link.href;
 buttonDiv2.appendChild(anchorTag);
 
@@ -79,13 +74,8 @@ svg.appendChild(path1);
 svg.appendChild(path2);
 anchorDiv.appendChild(svg);
 
-
-
-
 block.textContent = '';
 block.classList.add('tw');
-//block.parentElement.style.maxWidth = '100%';
-//block.parentElement.style.padding = '0';
 block.append(sectionDiv);
 
 }
