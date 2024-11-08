@@ -17,7 +17,7 @@ export default function decorate(block) {
   const imageTag = document.createElement('img');
   imageTag.className = 'tw-absolute tw-object-cover tw-h-full tw-w-full tw-z-0';
   imageTag.src = image.src;
-  imageTag.alt = "banner";
+  imageTag.alt = 'banner';
   parentDiv1.appendChild(imageTag);
   const parentDiv2 = div({
     class: 'overlay tw-absolute tw-bg-black tw-opacity-40 tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-z-0',
