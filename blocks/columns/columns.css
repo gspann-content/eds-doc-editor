@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
 }
-
+.columns.block {
+    margin-top: 30px;
+}
 .columns img {
   width: 100%;
 }
